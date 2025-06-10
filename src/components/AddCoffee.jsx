@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const AddCoffee = () => {
 
  const handleAddCoffee = (e) => {
@@ -16,7 +18,7 @@ const AddCoffee = () => {
   };
   console.log(newCoffee);
 
-  // send data to server side
+  // send data to the server
   fetch('http://localhost:5000/coffee', {
     method: 'POST',
     headers: {
@@ -27,6 +29,14 @@ const AddCoffee = () => {
   .then(res=> res.json())
   .then(data => {
     console.log(data)
+    if(data.insertedId){
+      Swal.fire({
+        title: 'Success',
+        text: 'Coffee Added Successfully',
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      });
+    }
  })
 };
 
