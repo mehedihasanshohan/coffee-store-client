@@ -1,18 +1,35 @@
 const AddCoffee = () => {
 
-  const handleAddCoffee = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const quantity = form.quantity.value;
-    const supplier = form.supplier.value;
-    const taste = form.taste.value;
-    const price = form.price.value;
-    const details = form.details.value;
-    const photo = form.photo.value;
-    const newCoffee = {name, quantity, supplier, taste, price, details,photo};
-    console.log(newCoffee);
+ const handleAddCoffee = (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const { name, quantity, supplier, taste, price, details, photo } = form;
+
+  const newCoffee = {
+    name: name.value,
+    quantity: quantity.value,
+    supplier: supplier.value,
+    taste: taste.value,
+    price: price.value,
+    details: details.value,
+    photo: photo.value,
   };
+  console.log(newCoffee);
+
+  // send data to server side
+  fetch('http://localhost:5000/coffee', {
+    method: 'POST',
+    headers: {
+      'content-type' : 'application/json'
+    },
+    body: JSON.stringify(newCoffee)
+  })
+  .then(res=> res.json())
+  .then(data => {
+    console.log(data)
+ })
+};
+
 
   return (
    <div className='p-24'>
