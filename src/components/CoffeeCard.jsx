@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Swal from "sweetalert2";
 const CoffeeCard = ({ coffee }) => {
   const { _id, name, quantity, supplier, taste, price, photo } = coffee;
@@ -80,6 +81,8 @@ const CoffeeCard = ({ coffee }) => {
           >
             <span>👁️</span> View
           </button>
+
+          <Link to={`updateCoffee/${_id}`}>
           <button
             className="
               flex items-center justify-center gap-2
@@ -91,6 +94,8 @@ const CoffeeCard = ({ coffee }) => {
           >
             <span>✏️</span> Update
           </button>
+          </Link>
+
           <button
             onClick={() => handleDelete(_id)}
             className="
