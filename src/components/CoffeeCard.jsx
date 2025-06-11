@@ -1,39 +1,38 @@
-
-// const CoffeeCard = ({coffee}) => {
-
-//   const { name, quantity, supplier, taste, price, details, photo } = coffee;
-
-//   return (
-//      <div className="card card-side bg-base-100 shadow-xxl">
-//       <figure>
-//         <img
-//           src={photo}
-//           alt="coffee" />
-//       </figure>
-//       <div className="card-body flex justify-between w-full pr-4">
-//         <div>
-//           <h2 className="card-title">Name: {name}</h2>
-//           <p>{quantity}</p>
-//           <p>{supplier}</p>
-//           <p>{taste}</p>
-//         </div>
-//         <div className="card-actions justify-end">
-//           <div className="btn-group btn-group-vertical space-y-4">
-//             <button className="btn btn-active">View</button>
-//             <button className="btn">Update</button>
-//             <button className="btn">Delete</button>
-//           </div>
-//         </div>
-//       </div>
-//      </div>
-//   )
-// }
-
-// export default CoffeeCard
-
-
+import Swal from "sweetalert2";
 const CoffeeCard = ({ coffee }) => {
   const { _id, name, quantity, supplier, taste, price, photo } = coffee;
+
+  const handleDelete = (_id) => {
+    console.log(_id);
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          // start deleting coffee
+          fetch(`http://localhost:5000/coffees/${_id}`,{
+            method: "DELETE"
+          })
+          .then(res => res.json())
+          .then(data => {
+            if(data.deletedCount){
+              Swal.fire({
+               title: "Deleted!",
+               text: "Your Coffee has been deleted.",
+               icon: "success"
+               });
+            }
+          })
+        }
+      });
+  }
 
   return (
     <div
@@ -79,7 +78,6 @@ const CoffeeCard = ({ coffee }) => {
               transition hover:text-blue-600 hover:scale-110 hover:shadow-md
             "
           >
-            {/* Replace with icon if you want */}
             <span>👁️</span> View
           </button>
           <button
@@ -94,6 +92,7 @@ const CoffeeCard = ({ coffee }) => {
             <span>✏️</span> Update
           </button>
           <button
+            onClick={() => handleDelete(_id)}
             className="
               flex items-center justify-center gap-2
               bg-[#e0e5ec] text-gray-700 rounded-xl px-5 py-2
