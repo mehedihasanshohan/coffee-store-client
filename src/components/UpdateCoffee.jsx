@@ -1,8 +1,9 @@
- import { useLoaderData } from 'react-router';
+import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
 
 const UpdateCoffee = () => {
-    const {_id, name, quantity, price, taste, supplier, photo, details} = useLoaderData();
+    const coffee = useLoaderData();
+    const {_id, name, quantity, price, taste, supplier, photo, details} = coffee;
 
     const handleUpdateCoffee = e =>{
         e.preventDefault();
@@ -12,7 +13,7 @@ const UpdateCoffee = () => {
         console.log(updatedCoffee);
 
         // send updated coffee to the db
-        fetch(`http://localhost:3000/coffees/${_id}`, {
+        fetch(`http://localhost:5000/coffee/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -20,14 +21,14 @@ const UpdateCoffee = () => {
             body: JSON.stringify(updatedCoffee)
         })
         .then(res => res.json())
-        .then(data =>{
-            if(data.modifiedCount){
+        .then(data => {
+          console.log(data);
+            if(data.modifiedCount > 0){
                 Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Coffee updated successfully.",
-                    showConfirmButton: false,
-                    timer: 1500
+                    title: 'Success!',
+                    icon: 'success',
+                    text: 'Coffee updated successfully.',
+                    confirmButtonText: 'Cool'
                   });
             }
         })
