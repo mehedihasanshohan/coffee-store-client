@@ -9,12 +9,12 @@ function App() {
   const [coffees, setCoffees] = useState(loadedCoffees);
 
   return (
-   <div className='m-20'>
+   <div className='mt-4'>
     <div className='text-center'>
       <Link to={'/addcoffee'}><button className='btn btn-info ml-4'>Add a Coffee</button></Link>
     </div>
-    <h1 className='text-6xl text-center my-20 text-[#c9aabc]'>Cold Coffee: {coffees.length}</h1>
-      <div className='grid md:grid-cols-2 gap-4'>
+    <h1 className='text-6xl text-center my-6 text-[#c9aabc]'>Cold Coffee: {coffees.length}</h1>
+      <div className='grid md:grid-cols-2 m-6 gap-4'>
       {
         coffees.map(coffee => <CoffeeCard
          key={coffee._id}

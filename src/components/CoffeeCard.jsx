@@ -32,7 +32,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
                const remainingCoffees= coffees.filter(cof=> cof._id !== _id)
                setCoffees(remainingCoffees);
               }
-              
+
           })
         }
       });
@@ -40,15 +40,15 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
 
   return (
     <div
-      className="
-        bg-gradient-to-br from-[#e0e5ec] to-[#f7f9fc]
-        rounded-2xl
-        p-6
-        flex flex-col md:flex-row items-center gap-6
-        max-w-2xl mx-auto w-full
-        transition-transform duration-300 hover:scale-[1.02]
-      "
-    >
+        className="
+          w-full max-w-4xl mx-auto
+          bg-gradient-to-br from-[#e0e5ec] to-[#f7f9fc]
+          rounded-2xl p-6
+          flex flex-col md:flex-row items-center gap-6
+          transition-transform duration-300 hover:scale-[1.02]
+          min-h-[220px]
+        "
+>
       {/* Image */}
       <div className="w-full md:w-1/3 rounded-xl overflow-hidden shadow-inner">
         <img
