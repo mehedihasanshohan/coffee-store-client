@@ -32,6 +32,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
                const remainingCoffees= coffees.filter(cof=> cof._id !== _id)
                setCoffees(remainingCoffees);
               }
+              
           })
         }
       });

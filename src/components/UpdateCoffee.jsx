@@ -1,43 +1,97 @@
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const UpdateCoffee = () => {
     const coffee = useLoaderData();
     const {_id, name, quantity, price, taste, supplier, photo, details} = coffee;
 
-    const handleUpdateCoffee = e =>{
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const updatedCoffee = Object.fromEntries(formData.entries())
-        console.log(updatedCoffee);
+    // const handleUpdateCoffee = e =>{
+    //     e.preventDefault();
+    //     const form = e.target;
+    //     const formData = new FormData(form);
+    //     const updatedCoffee = Object.fromEntries(formData.entries())
+    //     console.log(updatedCoffee);
 
-        // send updated coffee to the db
-        fetch(`http://localhost:5000/coffee/${_id}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(updatedCoffee)
-        })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-            if(data.modifiedCount > 0){
-                Swal.fire({
-                    title: 'Success!',
-                    icon: 'success',
-                    text: 'Coffee updated successfully.',
-                    confirmButtonText: 'Cool'
-                  });
-            }
-        })
+    //     // send updated coffee to the db
+    //     fetch(`http://localhost:5000/coffee/${_id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify(updatedCoffee)
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => {
+    //       console.log(data);
+    //         if(data.modifiedCount > 0){
+    //             Swal.fire({
+    //                 title: 'Success!',
+    //                 icon: 'success',
+    //                 text: 'Coffee updated successfully.',
+    //                 confirmButtonText: 'Cool'
+    //               });
+    //         }
+    //     })
 
-    }
+    // }
+    const handleUpdateCoffee = e => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const updatedCoffee = Object.fromEntries(formData.entries());
+    console.log(updatedCoffee);
+
+    fetch(`http://localhost:5000/coffee/${_id}`, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(updatedCoffee)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+            Swal.fire({
+                title: 'Success!',
+                icon: 'success',
+                text: 'Coffee updated successfully.',
+                confirmButtonText: 'Cool'
+            });
+        } else if (data.matchedCount > 0) {
+            Swal.fire({
+                title: 'No changes detected',
+                icon: 'info',
+                text: 'No updates were made because data is the same.',
+            });
+        } else {
+            Swal.fire({
+                title: 'Update failed',
+                icon: 'error',
+                text: 'Coffee not found or update failed.',
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Update error:', error);
+        Swal.fire({
+            title: 'Error!',
+            icon: 'error',
+            text: 'Failed to update coffee. Please try again.',
+        });
+    });
+};
+
 
     return (
         <div className='p-24'>
-            <div className='p-12 text-center space-y-4'>
+          <div className="text-center">
+            <Link to={'/'}>
+              <button className="btn btn-info text-center">Home</button>
+             </Link>
+           </div>
+           <div className='p-12 text-center space-y-4'>
                 <h1 className="text-6xl">Update Coffee</h1>
             </div>
             <form onSubmit={handleUpdateCoffee}>
