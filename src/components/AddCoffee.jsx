@@ -49,6 +49,12 @@ const AddCoffee = () => {
       <Link to={'/'}>
       <button className="btn btn-info text-center">Home</button>
       </Link>
+      <Link to={'/signin'}>
+      <button className="btn btn-accent text-center">Sign In</button>
+      </Link>
+      <Link to={'/signup'}>
+      <button className="btn btn-success text-center">Sign Up</button>
+      </Link>
     </div>
             <div className='p-12 text-center space-y-4'>
                 <h1 className="text-6xl">Add Coffee</h1>

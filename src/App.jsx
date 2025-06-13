@@ -12,6 +12,12 @@ function App() {
    <div className='mt-4'>
     <div className='text-center'>
       <Link to={'/addcoffee'}><button className='btn btn-info ml-4'>Add a Coffee</button></Link>
+      <Link to={'/signin'}>
+      <button className="btn ml-2 btn-accent text-center">Sign In</button>
+      </Link>
+      <Link to={'/signup'}>
+      <button className="btn ml-2 btn-success text-center">Sign Up</button>
+      </Link>
     </div>
     <h1 className='text-6xl text-center my-6 text-[#c9aabc]'>Cold Coffee: {coffees.length}</h1>
       <div className='grid md:grid-cols-2 m-6 gap-4'>
