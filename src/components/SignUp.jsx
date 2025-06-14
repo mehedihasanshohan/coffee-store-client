@@ -8,6 +8,7 @@ const SignUp = () => {
 
   const handleSignUp = e => {
      e.preventDefault();
+     const name = e.target.name.value;
      const email = e.target.email.value;
      const password = e.target.password.value;
      console.log('form sign up', email, password);
@@ -15,7 +16,9 @@ const SignUp = () => {
      createUser(email, password)
       .then(result => {
         console.log(result.user);
-        const newUser = {name, email}
+        const createdAt = result.user.metadata.creationTime;
+
+        const newUser = {name, email, createdAt}
         // SAVE NEW USER TO THE DATABASE
         fetch('http://localhost:5000/users', {
           method: 'POST',
@@ -26,7 +29,10 @@ const SignUp = () => {
         })
           .then(res => res.json())
           .then(data => {
-            console.log('user created to db', data);
+            // console.log('user created to db', data);
+            if(data.insertedId){
+              console.log('user created in MongoDB database')
+            }
           })
 
       })
